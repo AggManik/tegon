@@ -52,11 +52,12 @@ model Workspace {
   slug String  @unique
   icon String?
 
-  usersOnWorkspaces UsersOnWorkspaces[]
-  team              Team[]
-  label             Label[]
-  template          Template[]
-  syncAction        SyncAction[]
+  usersOnWorkspaces  UsersOnWorkspaces[]
+  team               Team[]
+  label              Label[]
+  template           Template[]
+  syncAction         SyncAction[]
+  integrationAccount IntegrationAccount[]
 }
 
 model UsersOnWorkspaces {
@@ -279,6 +280,36 @@ model IssueHistory {
   relationChanges Json[]
 }
 
+model IntegrationDefinition {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deleted   DateTime?
+
+  name         String
+  icon         String
+  spec         Json
+  clientId     String
+  clientSecret String
+  scopes       String
+
+  IntegrationAccount IntegrationAccount[]
+}
+
+model IntegrationAccount {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deleted   DateTime?
+
+  integrationConfiguration Json
+
+  integrationDefinition   IntegrationDefinition @relation(references: [id], fields: [integrationDefinitionId])
+  integrationDefinitionId String
+  workspace               Workspace             @relation(references: [id], fields: [workspaceId])
+  workspaceId             String
+}
+
 enum Preference {
   ISSUE_ESTIMATES
   PRIORITIES
@@ -293,6 +324,7 @@ enum Status {
   ACTIVE
   SUSPENDED
 }
+
 enum ModelName {
   Workspace
   Team
