@@ -18,6 +18,7 @@
 </em>
 </p>
 
+
 ## Reporting vulnerabilities
 
 ⚠️ Please do not file GitHub issues or post on our public forum for security vulnerabilities as they are public! ⚠️
