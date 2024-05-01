@@ -14,7 +14,7 @@
 
 
 <p align="center">
-    <em>Tegon is an open-source product management tool
+    <em>Tegon is an open-source project management tool
 </em>
 </p>
 
